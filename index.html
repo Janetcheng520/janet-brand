@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Janet - AI应用开发者、商业插画师、自媒体创作者。用技术赋能创意，用创意连接人心。">
+  <title>Janet | AI应用 · 商业插画 · 自媒体创作</title>
+  
+  <!-- Google Fonts: Quicksand (圆润英文) + Noto Sans SC (中文顺滑无棱角) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700;900&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ========== 导航栏 ========== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#hero" class="nav-logo" data-target="hero">Janet<span class="logo-dot">.</span></a>
+      <button class="nav-toggle" id="navToggle" aria-label="菜单">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks"></ul>
+    </div>
+  </nav>
+
+  <!-- ========== Hero 首屏 ========== -->
+  <section class="hero" id="hero">
+    <div class="hero-bg">
+      <div class="hero-orb orb-1"></div>
+      <div class="hero-orb orb-2"></div>
+      <div class="hero-orb orb-3"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-avatar" id="heroAvatar"></div>
+      <h1 class="hero-name" id="heroName"></h1>
+      <p class="hero-title" id="heroTitle"></p>
+      <p class="hero-tagline" id="heroTagline"></p>
+      <p class="hero-intro" id="heroIntro"></p>
+      <div class="hero-directions" id="heroDirections"></div>
+      <div class="hero-scroll">
+        <span>向下滚动探索</span>
+        <div class="scroll-line"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 方向区块容器（动态渲染） ========== -->
+  <div id="directionsContainer"></div>
+
+  <!-- ========== 关于我 ========== -->
+  <section class="about section" id="about">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">ABOUT</span>
+        <h2 class="section-title">关于我</h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-timeline" id="aboutTimeline"></div>
+        <div class="about-skills" id="aboutSkills">
+          <h3 class="skills-title">技能矩阵</h3>
+          <div class="skills-list" id="skillsList"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 联系方式 ========== -->
+  <section class="contact section" id="contact">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">CONTACT</span>
+        <h2 class="section-title">一起搞事情</h2>
+      </div>
+      <div class="contact-content">
+        <p class="contact-text" id="contactText"></p>
+        <div class="social-grid" id="socialGrid"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 页脚 ========== -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 Janet · 用技术赋能创意，用创意连接人心</p>
+    </div>
+  </footer>
+
+  <!-- ========== 欢迎弹窗 - 橙小鱼打招呼 ========== -->
+  <div class="ip-welcome-overlay" id="ipWelcomeOverlay">
+    <div class="ip-welcome-card" id="ipWelcomeCard">
+      <div class="ip-welcome-avatar">
+        <img src="avatar-ip.jpg" alt="橙小鱼" loading="eager">
+      </div>
+      <div class="ip-welcome-bubble">
+        <p class="ip-welcome-text" id="ipWelcomeText"></p>
+        <div class="ip-welcome-cursor" id="ipWelcomeCursor"></div>
+      </div>
+      <button class="ip-welcome-btn" id="ipWelcomeBtn" style="display:none">
+        ✨ 开始探索
+      </button>
+    </div>
+  </div>
+
+  <!-- ========== IP 小助手 - 橙小鱼（视频动画版） ========== -->
+  <div class="ip-companion" id="ipCompanion">
+    <div class="ip-speech-bubble" id="ipSpeechBubble">
+      <span class="ip-bubble-text" id="ipBubbleText"></span>
+    </div>
+    <div class="ip-companion-inner" id="ipCompanionInner">
+      <video id="ipGreetVideo" muted playsinline preload="auto" webkit-playsinline x5-playsinline>
+        <source src="greet.webm" type="video/webm">
+        <source src="greet.mp4" type="video/mp4">
+      </video>
+      <video id="ipLeaveVideo" muted playsinline preload="auto" webkit-playsinline x5-playsinline>
+        <source src="leave.webm" type="video/webm">
+        <source src="leave.mp4" type="video/mp4">
+      </video>
+      <!-- 小脑袋静态图：离开后露出的刘海尖 -->
+      <img id="ipNodImg" src="nod-head.png" alt="小脑袋">
+    </div>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
