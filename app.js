@@ -622,6 +622,112 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  /* ====== 暗色模式 ====== */
+  function initThemeToggle() {
+    const toggle = document.getElementById("themeToggle");
+    const icon = document.getElementById("themeIcon");
+    const savedTheme = localStorage.getItem("janet-theme");
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+    if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
+      document.body.classList.add("dark-theme");
+      if (icon) icon.textContent = "☀️";
+    }
+
+    if (toggle) {
+      toggle.addEventListener("click", () => {
+        const isDark = document.body.classList.toggle("dark-theme");
+        localStorage.setItem("janet-theme", isDark ? "dark" : "light");
+        if (icon) icon.textContent = isDark ? "☀️" : "🌙";
+      });
+    }
+  }
+
+  /* ====== 返回顶部 ====== */
+  function initBackToTop() {
+    const btn = document.getElementById("backToTop");
+    if (!btn) return;
+
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 400) {
+        btn.classList.add("visible");
+      } else {
+        btn.classList.remove("visible");
+      }
+    });
+
+    btn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
+
+  /* ====== 滚动进度条 ====== */
+  function initScrollProgress() {
+    const bar = document.getElementById("scrollProgress");
+    if (!bar) return;
+
+    window.addEventListener("scroll", () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      bar.style.width = progress + "%";
+    });
+  }
+
+  /* ====== 图片懒加载 ====== */
+  function initLazyImages() {
+    const images = document.querySelectorAll("img[data-src]");
+    if (!images.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
+            const src = img.getAttribute("data-src");
+            if (src) {
+              img.src = src;
+              img.removeAttribute("data-src");
+            }
+            observer.unobserve(img);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "50px" }
+    );
+
+    images.forEach((img) => observer.observe(img));
+  }
+
+  /* ====== 移动端触摸优化 ====== */
+  function initTouchOptimizations() {
+    if (!("ontouchstart" in window)) return;
+
+    // 禁用移动端双击缩放
+    let lastTouchEnd = 0;
+    document.addEventListener(
+      "touchend",
+      (e) => {
+        const now = Date.now();
+        if (now - lastTouchEnd <= 300) {
+          e.preventDefault();
+        }
+        lastTouchEnd = now;
+      },
+      { passive: false }
+    );
+
+    // 点击方向卡片滚动优化
+    document.querySelectorAll(".hero-direction-card").forEach((card) => {
+      card.addEventListener("touchend", (e) => {
+        e.preventDefault();
+        const target = card.getAttribute("data-target");
+        const el = document.getElementById(target);
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+      });
+    });
+  }
+
   /* ====== 初始化 ====== */
   renderNav();
   renderHero();
@@ -631,4 +737,9 @@ document.addEventListener("DOMContentLoaded", () => {
   initNav();
   initScrollAnimations();
   initIPCompanion();
+  initThemeToggle();
+  initBackToTop();
+  initScrollProgress();
+  initLazyImages();
+  initTouchOptimizations();
 });
